@@ -1,5 +1,4 @@
-
-![image](graph_two.jpg){: style="float: left"; margin-right: 10em; height="25%" width="25%"} ## NewsExplorer
+![image](https://github.com/RohanPatil1/NewsExplorer/blob/master/icon.png){: style="float: left"; margin-right: 10em; height="25%" width="25%"} ## NewsExplorer
 
 # About
 NewsExplorer is a news app that fetches news articles of different catergories and present them in a interactive and minimal style. Users can save articles which will be stored locally. Also, the Discover screen lets users to explorer news of all the available categories. The network state is also handle appropriately.  
