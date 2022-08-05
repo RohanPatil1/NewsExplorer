@@ -1,11 +1,11 @@
-![image](https://github.com/RohanPatil1/NewsExplorer/blob/master/icon.png){: style="float: left"; margin-right: 10em; height="25%" width="25%"} ## NewsExplorer
+
 
 <div style="clear: both;">
-  <div style="float: left; margin-right 1em;">
+  <div style="float: left; margin-right 1em;"  height="40" width="40">
     <img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/icon.png" alt="">
   </div>
   <div>
-    <h1>News Explorer</h1>
+    <h2>News Explorer</h2>
   </div>
 </div>
 
