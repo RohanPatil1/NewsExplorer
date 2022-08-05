@@ -1,8 +1,8 @@
 
 
 <div style="clear: both;">
-  <div style="float: left; margin-right 1em;"  height="40" width="40">
-    <img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/icon.png" alt="">
+  <div style="float: left; margin-right 1em;" >
+    <img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/icon.png"  height="40" width="40" alt="">
   </div>
   <div>
     <h2>News Explorer</h2>
