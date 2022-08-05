@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.rohan.newsexplorer.ui.fragments.HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_discoverFragment"
+            app:destination="@id/discoverFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_downloadedFragment"
+            app:destination="@id/downloadedFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/discoverFragment"
+        android:name="com.rohan.newsexplorer.ui.fragments.DiscoverFragment"
+        tools:layout="@layout/fragment_discover">
+        <action
+            android:id="@+id/action_discoverFragment_to_detailsFragment"
+            app:destination="@id/details_fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/downloadedFragment"
+        android:name="com.rohan.newsexplorer.ui.fragments.DownloadedFragment"
+        android:label="fragment_downloaded"
+        tools:layout="@layout/fragment_downloaded" />
+    <fragment
+        android:id="@+id/details_fragment"
+        android:name="com.rohan.newsexplorer.ui.fragments.DetailsFragment"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="nData"
+            app:argType="com.rohan.newsexplorer.data.model.NData" />
+    </fragment>
+</navigation>

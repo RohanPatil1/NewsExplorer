@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+
+    <View
+        android:id="@+id/newsImgIV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#57FFFFFF"
+        android:alpha="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/top_shadow"
+        app:layout_constraintHeight_percent="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/bottom_gradient_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/bottom_shadow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.52"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:id="@+id/titleTV"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="#E3E3E3"
+        app:layout_constraintBottom_toTopOf="@+id/dummyLL"
+        app:layout_constraintStart_toStartOf="@+id/dummyLL" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/dummyLL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/authorTV"
+        app:layout_constraintStart_toStartOf="@id/authorTV">
+    <View
+        android:id="@+id/descriptionTV"
+        android:layout_width="320dp"
+        android:layout_height="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/grey"
+        />
+
+
+    <View
+        android:id="@+id/description2TV"
+        android:layout_width="300dp"
+        android:layout_height="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/grey"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/authorTV"
+        android:layout_width="80dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="@{itemVm.author}"
+        android:background="@color/blue"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Apaar Sharma" />
+
+    <TextView
+        android:id="@+id/dotSepTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="•"
+        android:textColor="#D8FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/authorTV"
+        app:layout_constraintTop_toTopOf="@+id/authorTV"
+        tools:text="•" />
+
+    <View
+        android:id="@+id/dateTV"
+        android:layout_width="80dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="#D6D6D6"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/dotSepTV"
+    />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

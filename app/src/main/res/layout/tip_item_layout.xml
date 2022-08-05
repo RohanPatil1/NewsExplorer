@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_light_bulb" />
+
+    <TextView
+        android:id="@+id/downloadGuideTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:fontFamily="serif"
+        android:shadowColor="@color/black_50"
+        android:shadowDx="-1"
+        android:shadowDy="-1"
+        android:shadowRadius="2"
+        android:text="Double tap title to save"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:typeface="normal" />
+
+    <ImageView
+        android:id="@+id/tipCloseBtn"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="8dp"
+       android:layout_marginStart="4dp"
+        android:src="@drawable/ic_close"
+        android:padding="2dp"
+        android:background="@drawable/circle_bg"
+        />
+</LinearLayout>

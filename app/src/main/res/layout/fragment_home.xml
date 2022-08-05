@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.rohan.newsexplorer.ui.view_models.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorOnPrimary"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        tools:context=".features.discover.ui.HomeFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/newsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+        <LinearLayout
+            android:id="@+id/homeErrorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:contentDescription="@string/error"
+                android:src="@drawable/error_vector" />
+
+            <TextView
+                android:id="@+id/homeErrorViewTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:maxLines="2"
+                android:text="Something went wrong..."
+                android:textAlignment="center"
+                android:textSize="16sp"
+                tools:text="Something went wrong..." />
+
+            <Button
+                android:id="@+id/homeTryAgainBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:minHeight="0dp"
+                android:text="Try Again"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/homeShimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:shimmer_auto_start="true"
+            tools:visibility="invisible">
+
+            <include layout="@layout/dummy_news_layout" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <LinearLayout
+            android:id="@+id/homeBarLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="7"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/discoverTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="0"
+                android:shadowColor="#0749b5"
+                android:shadowDx="-1"
+                android:shadowDy="-1"
+                android:shadowRadius="2"
+                android:text="Discover"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_weight="7"
+                android:animateLayoutChanges="true"
+                android:layoutDirection="rtl"
+                app:iconifiedByDefault="true" />
+
+            <ImageView
+                android:id="@+id/downloadsTV"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:alpha="0.6"
+                android:src="@drawable/ic_bookmarks"
+                app:layout_constraintStart_toEndOf="@+id/searchTV"
+                app:layout_constraintTop_toTopOf="@+id/searchTV" />
+        </LinearLayout>
+
+        <!--        <com.google.android.material.button.MaterialButton-->
+        <!--            android:id="@+id/newArticleBtn"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@drawable/refresh_btn_bg"-->
+        <!--            android:minHeight="0dp"-->
+        <!--            android:shadowColor="@color/grey"-->
+        <!--            android:shadowDx="-1"-->
+        <!--            android:shadowDy="-1"-->
+        <!--            android:shadowRadius="2"-->
+        <!--            android:text="New articles"-->
+        <!--            android:textColor="@color/white_50"-->
+        <!--            android:textSize="12sp"-->
+        <!--            android:visibility="gone"-->
+        <!--            app:backgroundTint="@color/dark_grey"-->
+        <!--            app:icon="@drawable/ic_refresh"-->
+        <!--            app:iconTint="@color/white_50"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/homeBarLL" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
