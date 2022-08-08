@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:targetApi="25">
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_explore"
+        android:shortcutDisabledMessage="@string/androidx_startup"
+        android:shortcutId="explore"
+        android:shortcutLongLabel="@string/discover_long_label"
+        android:shortcutShortLabel="@string/discover_short_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.rohan.newsexplorer.ui.fragments.DiscoverFragment"
+            android:targetPackage="com.rohan.newsexplorer">
+            <!-- <extra
+                 android:name="key"
+                 android:value="value"/>-->
+            <!-- If your shortcut is associated with multiple intents, include them
+                 here. The last intent in the list determines what the user sees when
+                 they launch this shortcut. -->
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_light_bulb"
+        android:shortcutDisabledMessage="@string/downloads"
+        android:shortcutId="feed"
+        android:shortcutLongLabel="@string/feed_long_label"
+        android:shortcutShortLabel="@string/feed_short_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.rohan.newsexplorer.ui.fragments.HomeFragment"
+            android:targetPackage="com.rohan.newsexplorer">
+            <!-- <extra
+                 android:name="key"
+                 android:value="value"/>-->
+            <!-- If your shortcut is associated with multiple intents, include them
+                 here. The last intent in the list determines what the user sees when
+                 they launch this shortcut. -->
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>
