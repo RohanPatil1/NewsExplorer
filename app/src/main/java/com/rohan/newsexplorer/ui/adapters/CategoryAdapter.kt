@@ -1,26 +1,17 @@
 package com.rohan.newsexplorer.ui.adapters
 
-import android.R
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Color.blue
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.compose.ui.res.colorResource
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.alpha
-import androidx.core.graphics.blue
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.internal.ContextUtils.getActivity
 import com.rohan.newsexplorer.databinding.DiscoverCategoryItemBinding
 import com.rohan.newsexplorer.ui.adapters.click_listeners.CategoryItemOnClick
 import com.rohan.newsexplorer.ui.view_models.Category
 import com.rohan.newsexplorer.ui.view_models.CategoryItemUtils
-import com.rohan.newsexplorer.utils.Constants
 
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {

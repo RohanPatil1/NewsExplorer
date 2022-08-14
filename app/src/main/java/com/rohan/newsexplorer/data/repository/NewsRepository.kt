@@ -21,15 +21,15 @@ class NewsRepository @Inject constructor(
 ) {
     suspend fun fetchNewsData(category: String): DataResult<NewsData> {
         return try {
-//            val cachedNews = newsDao.getNewsList()
-//            if (cachedNews.isNullOrEmpty()) {
-//                Log.d("ROHANR", "DB IS NULL")
-//            } else {
-//                Log.d("ROHANR", "DB IS  NOT NULL")
-//                val nData = NewsData(category = category, success = true, newDataList = cachedNews)
-//                return DataResult.Success(nData)
-//            }
-//            Log.d("ROHANR", "API CALLING TO BE MADE")
+            val cachedNews = newsDao.getNewsList()
+            if (cachedNews.isNullOrEmpty()) {
+                Log.d("ROHANR", "DB IS NULL")
+            } else {
+                Log.d("ROHANR", "DB IS  NOT NULL")
+                val nData = NewsData(category = category, success = true, newDataList = cachedNews)
+                return DataResult.Success(nData)
+            }
+            Log.d("ROHANR", "API CALLING TO BE MADE")
 
             val response = newsApiService.getNewsData(category)
 
@@ -40,7 +40,7 @@ class NewsRepository @Inject constructor(
                     if (nData.readMoreUrl == null) continue
                     verifiedNewsList.add(nData)
                 }
-//                newsDao.insertAll(verifiedNewsList)
+                newsDao.insertAll(verifiedNewsList)
                 DataResult.Success(response.body()!!)
             } else {
                 response.errorBody()?.toString()?.let { Log.d("ROHAN", it) }

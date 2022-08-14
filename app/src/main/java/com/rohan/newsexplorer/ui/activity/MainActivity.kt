@@ -9,8 +9,13 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.rohan.newsexplorer.databinding.ActivityMainBinding
 import com.rohan.newsexplorer.ui.view_models.MainViewModel
+import com.rohan.newsexplorer.ui.worker.NewsWorker
 import com.rohan.newsexplorer.utils.Constants.IS_FRESH_START
 import com.rohan.newsexplorer.utils.Constants.CAN_SHOW_ONLINE
 import com.rohan.newsexplorer.utils.Constants.SHARED_PREFS
@@ -33,6 +38,43 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         prefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+        handleNetworkUI()
+
+        //Schedule BG Worker
+        scheduleBgWorker()
+    }
+
+    private fun scheduleBgWorker() {
+        val request = OneTimeWorkRequestBuilder<NewsWorker>().build()
+
+        //Add request to queue
+        WorkManager.getInstance(applicationContext)
+            .enqueue(request)
+        val requestId = request.id
+        //Observe
+        WorkManager.getInstance(applicationContext).getWorkInfoByIdLiveData(requestId)
+            .observe(this) {
+                val TAG = "Worker"
+                it?.let { workInfo ->
+                    when (workInfo.state) {
+                        WorkInfo.State.ENQUEUED ->
+                            Log.d(TAG, "Worker ENQUEUED")
+                        WorkInfo.State.RUNNING ->
+                            Log.d(TAG, "Worker RUNNING")
+                        WorkInfo.State.SUCCEEDED ->
+                            Log.d(TAG, "Worker SUCCEEDED")
+                        WorkInfo.State.FAILED ->
+                            Log.d(TAG, "Worker FAILED")
+                        WorkInfo.State.BLOCKED ->
+                            Log.d(TAG, "Worker BLOCKED")
+                        WorkInfo.State.CANCELLED ->
+                            Log.d(TAG, "Worker CANCELLED")
+                    }
+                }
+            }
+    }
+
+    private fun handleNetworkUI() {
         Log.d("ConnManager", "MainActivity: INIT")
         binding.mainNetworkOnTV.visibility = INVISIBLE
         binding.mainNetworkOffTV.visibility = INVISIBLE
@@ -74,26 +116,11 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
-    }
-
-    private fun setStartUpPref() {
-        var isFreshStart = prefs.getBoolean(IS_FRESH_START, false)
-        if (!isFreshStart) {
-            val editor: SharedPreferences.Editor = prefs.edit()
-            editor.putBoolean(IS_FRESH_START, true)
-            editor.apply()
-        }
     }
 
     private fun updateShowOnlineFlag(value: Boolean) {
         val editor: SharedPreferences.Editor = prefs.edit()
         editor.putBoolean(CAN_SHOW_ONLINE, value)
-        editor.apply()
-    }
-
-    private fun putNetworkOff(editor: SharedPreferences.Editor) {
-        editor.putBoolean(CAN_SHOW_ONLINE, false)
         editor.apply()
     }
 
