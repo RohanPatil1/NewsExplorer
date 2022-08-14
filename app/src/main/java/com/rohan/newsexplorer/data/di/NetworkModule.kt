@@ -2,6 +2,8 @@ package com.rohan.newsexplorer.data.di
 
 import android.content.Context
 import com.rohan.newsexplorer.data.network.NewsApiService
+import com.rohan.newsexplorer.data.repository.NewsRepository
+import com.rohan.newsexplorer.ui.notification.NewsUpdatesNotification
 import com.rohan.newsexplorer.utils.ConnectionLiveData
 import com.rohan.newsexplorer.utils.Constants.BASE_URL
 import dagger.Module
@@ -38,5 +40,11 @@ object NetworkModule {
     @Provides
     fun provideConnectionLivedata(@ApplicationContext context: Context): ConnectionLiveData {
         return ConnectionLiveData(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNotificationUpdates(@ApplicationContext context: Context,newsRepository: NewsRepository): NewsUpdatesNotification {
+        return NewsUpdatesNotification(context,newsRepository)
     }
 }

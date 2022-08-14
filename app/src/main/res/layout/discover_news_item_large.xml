@@ -88,6 +88,7 @@
         android:id="@+id/discoverItemLargePB"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:visibility="invisible"
         android:background="@drawable/img_placeholder"
         app:layout_constraintBottom_toBottomOf="@+id/discoverCatImgLargeIV"
         app:layout_constraintEnd_toEndOf="parent"

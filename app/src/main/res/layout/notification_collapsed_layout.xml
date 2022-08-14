@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:minHeight="48dp"
+    android:id="@+id/rootNotifSmall"
+    android:orientation="horizontal"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+
+            android:id="@+id/notifSmallTitleTV"
+            style="@style/TextAppearance.Compat.Notification.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:fontFamily="serif"
+            android:maxLines="1"
+            android:shadowColor="@color/black_50"
+            android:shadowDx="-1"
+            android:shadowDy="-1"
+            android:shadowRadius="2"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            tools:text="NASA\u2019s CAPSTONE mission launches to the moon" />
+
+
+        <TextView
+            android:id="@+id/notifSmallSubTitleTV"
+            style="@style/TextAppearance.Compat.Notification.Line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+            android:fontFamily="serif"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLines="2"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textSize="12sp"
+            android:typeface="normal"
+            tools:text="NASA\u2019s CAPSTONE CAPSTONE CAPSTONE CAPSTONE CAPSTONE CAPSTONE mission launches to the moon" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/notifSmallIV"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="2"
+        android:src="@mipmap/ic_launcher_foreground"
+        android:background="@mipmap/ic_launcher_background"
+      />
+
+</LinearLayout>
