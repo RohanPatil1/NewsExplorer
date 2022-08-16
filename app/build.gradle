@@ -97,6 +97,9 @@ dependencies {
     //WorkManager &  HiltWork
     implementation "androidx.work:work-runtime-ktx:2.7.1"
     implementation("androidx.hilt:hilt-work:1.0.0")
+
+    //Speed Marquee
+    implementation 'com.github.RohanPatil1:SpeedMarquee:1.0.0'
 }
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: "kotlin-parcelize"

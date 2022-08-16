@@ -31,53 +31,48 @@
     <View
         android:id="@+id/discoverLBottomShadow"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:background="@drawable/bottom_shadow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.52"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.rohan.newsexplorer.ui.widgets.MarqueeViewSingle
 
+    <com.rohan.speed_marquee.SpeedMarquee
         android:id="@+id/marqTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24sp"
-        android:ellipsize="marquee"
+        android:layout_marginBottom="24dp"
         android:fadingEdge="horizontal"
         android:fontFamily="serif"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:maxLines="2"
+        android:maxLines="1"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
-        android:scrollHorizontally="true"
-        android:singleLine="true"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="NASA\u2019s CAPSTONE mission launches to the moon" />
+        app:marquee_speed="80.0"
+        tools:text="@string/dummy_text" />
 
-    <TextView
+
+    <com.rohan.speed_marquee.SpeedMarquee
         android:id="@+id/discoverCatTitleLargeTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:marquee_speed="210.0"
         android:layout_marginBottom="8dp"
-        android:ellipsize="marquee"
         android:fadingEdge="horizontal"
         android:fontFamily="serif"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:maxLines="2"
+        android:maxLines="1"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
-        android:scrollHorizontally="true"
-        android:singleLine="true"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,10 +83,10 @@
         android:id="@+id/discoverItemLargePB"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:visibility="invisible"
         android:background="@drawable/img_placeholder"
         app:layout_constraintBottom_toBottomOf="@+id/discoverCatImgLargeIV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

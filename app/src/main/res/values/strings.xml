@@ -10,6 +10,7 @@
     <string name="discover_long_label">See what\'s happening around you…</string>
     <string name="feed_short_label">Daily news</string>
     <string name="feed_long_label">Daily news</string>
+    <string name="dummy_text">NASA’s CAPSTONE mission launches to the moon</string>
     <string-array name="sports_array">
         <item>Shuttle Badminton</item>
         <item>Tennis</item>

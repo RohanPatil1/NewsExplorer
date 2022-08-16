@@ -82,17 +82,14 @@ class DiscoverNewsAdapter : ListAdapter<NData, RecyclerView.ViewHolder>(diffUtil
 
 
             binding.discoverCatTitleLargeTV.isSelected = true
-            binding.marqTV.setText1(nData.title)
+            binding.marqTV.text = nData.title
             binding.marqTV.isSelected = true
-            binding.marqTV.setTextSize(18f)
-            binding.marqTV.startMarquee()
 
             binding.discoverLBottomShadow.backgroundTintList = ColorStateList.valueOf(
                 getRandomColor()
             )
 
             binding.discoverLBottomShadow.backgroundTintBlendMode = BlendMode.COLOR
-
             binding.root.setOnClickListener {
                 discoverNewsItemOnClick.onNewsClick(nData)
             }
