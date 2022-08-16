@@ -10,9 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
+import androidx.work.*
 import com.rohan.newsexplorer.databinding.ActivityMainBinding
 import com.rohan.newsexplorer.ui.view_models.MainViewModel
 import com.rohan.newsexplorer.ui.worker.NewsWorker
@@ -24,6 +22,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 
 @AndroidEntryPoint
@@ -40,39 +39,11 @@ class MainActivity : AppCompatActivity() {
         prefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         handleNetworkUI()
 
-        //Schedule BG Worker
-        scheduleBgWorker()
+//        //Schedule BG Worker to show news notifications periodically
+//        scheduleBgWorker()
     }
 
-    private fun scheduleBgWorker() {
-        val request = OneTimeWorkRequestBuilder<NewsWorker>().build()
 
-        //Add request to queue
-        WorkManager.getInstance(applicationContext)
-            .enqueue(request)
-        val requestId = request.id
-        //Observe
-        WorkManager.getInstance(applicationContext).getWorkInfoByIdLiveData(requestId)
-            .observe(this) {
-                val TAG = "Worker"
-                it?.let { workInfo ->
-                    when (workInfo.state) {
-                        WorkInfo.State.ENQUEUED ->
-                            Log.d(TAG, "Worker ENQUEUED")
-                        WorkInfo.State.RUNNING ->
-                            Log.d(TAG, "Worker RUNNING")
-                        WorkInfo.State.SUCCEEDED ->
-                            Log.d(TAG, "Worker SUCCEEDED")
-                        WorkInfo.State.FAILED ->
-                            Log.d(TAG, "Worker FAILED")
-                        WorkInfo.State.BLOCKED ->
-                            Log.d(TAG, "Worker BLOCKED")
-                        WorkInfo.State.CANCELLED ->
-                            Log.d(TAG, "Worker CANCELLED")
-                    }
-                }
-            }
-    }
 
     private fun handleNetworkUI() {
         Log.d("ConnManager", "MainActivity: INIT")
@@ -84,9 +55,8 @@ class MainActivity : AppCompatActivity() {
 
 
             if (it) {
+                ///Network ON
                 Log.d("ConnManager", "MainActivity: IN TRUE")
-
-                //Network ON
 
                 //Show backOnline when we go from off->on & not a first time opening
                 val b1 = prefs.getBoolean(CAN_SHOW_ONLINE, false)
@@ -107,9 +77,8 @@ class MainActivity : AppCompatActivity() {
                     updateShowOnlineFlag(false)
                 }
             } else {
+                ///Network OFF
                 Log.d("ConnManager", "MainActivity: IN FALSE")
-
-                //Network OFF
                 updateShowOnlineFlag(true)
                 binding.mainNetworkOnTV.visibility = GONE
                 binding.mainNetworkOffTV.visibility = VISIBLE

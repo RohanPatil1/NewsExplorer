@@ -10,18 +10,23 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.delay
 
+
+/*
+    Show News Updates Notification Periodically
+ */
+
 @HiltWorker
 class NewsWorker @AssistedInject constructor(
     @Assisted applicationContext: Context,
     @Assisted workerParameters: WorkerParameters,
-    private val  notification: NewsUpdatesNotification
+    private val newsUpdatesNotification: NewsUpdatesNotification
 ) : CoroutineWorker(applicationContext, workerParameters) {
 
 
     override suspend fun doWork(): Result {
         Log.d("Worker", "Worker Started")
 
-        notification.showNotification()
+        newsUpdatesNotification.showNotification()
 
         return Result.success()
     }
