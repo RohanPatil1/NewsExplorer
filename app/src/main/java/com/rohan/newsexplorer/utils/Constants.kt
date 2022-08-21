@@ -4,6 +4,8 @@ object Constants {
     const val BASE_URL = "https://inshorts.deta.dev/"
     const val HOME = 0
     const val DOWNLOADS = 1
+    const val NOTIFICATION_ALARM_REQ_ID = 12
+    const val DAILY_8AM_NOTIFICATION = "DAILY_8AM_NOTIFICATION"
     const val DEFAULT_CATEGORY = "world"
     const val TIP_KEY = "TipSharedPref"
     const val SHOULD_DISABLE_TIP = "shouldDisableTip"

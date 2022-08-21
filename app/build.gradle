@@ -100,6 +100,9 @@ dependencies {
 
     //Speed Marquee
     implementation 'com.github.RohanPatil1:SpeedMarquee:1.0.0'
+
+    //Auto Start for chinese OEMs
+    implementation 'com.github.judemanutd:autostarter:1.1.0'
 }
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: "kotlin-parcelize"
