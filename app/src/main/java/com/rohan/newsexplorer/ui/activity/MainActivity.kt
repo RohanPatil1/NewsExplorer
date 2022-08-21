@@ -39,8 +39,6 @@ class MainActivity : AppCompatActivity() {
         prefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         handleNetworkUI()
 
-//        //Schedule BG Worker to show news notifications periodically
-//        scheduleBgWorker()
     }
 
 
