@@ -30,6 +30,7 @@ class NewsUpdatesNotification @Inject constructor(
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     lateinit var dataList: List<NData>
 
+    // NOTE - This will run on the WorkerThread and not the MainThread
     fun showNotification() {
 
         //Prepare Data
