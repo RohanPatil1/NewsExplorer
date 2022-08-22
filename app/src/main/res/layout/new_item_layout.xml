@@ -5,10 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="itemVm"
-            type="com.rohan.newsexplorer.ui.view_models.NewsItemVm" />
+            name="nData"
+            type="com.rohan.newsexplorer.data.model.NData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/black"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/newimgdescription"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +80,7 @@
             android:shadowDx="-1"
             android:shadowDy="-1"
             android:shadowRadius="2"
-            android:text="@{itemVm.title}"
+            android:text="@{nData.title}"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -108,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="16dp"
-            android:text="@{itemVm.author}"
+            android:text="@{nData.author}"
             android:textColor="@color/blue"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -136,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="16dp"
-            android:text="@{itemVm.date}"
+            android:text="@{nData.date}"
             android:textColor="#D6D6D6"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -147,9 +146,9 @@
             android:id="@+id/newsItemPB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:indeterminate="true"
             android:visibility="visible"
             app:indicatorColor="@color/white"
-            android:indeterminate="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:trackColor="?attr/colorSecondaryVariant"

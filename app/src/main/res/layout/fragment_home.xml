@@ -98,10 +98,10 @@
                 android:shadowDx="-1"
                 android:shadowDy="-1"
                 android:shadowRadius="2"
-                android:text="Discover"
                 android:textColor="@color/blue"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="Discover" />
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"

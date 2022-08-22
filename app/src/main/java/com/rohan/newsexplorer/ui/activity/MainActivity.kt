@@ -38,20 +38,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         prefs = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         handleNetworkUI()
-
     }
 
-
-
     private fun handleNetworkUI() {
-        Log.d("ConnManager", "MainActivity: INIT")
         binding.mainNetworkOnTV.visibility = INVISIBLE
         binding.mainNetworkOffTV.visibility = INVISIBLE
 
         mainViewModel.networkLiveData.observe(this) {
-            Log.d("ConnManager", "MainActivity: isNetworkAvailable- $it")
-
-
             if (it) {
                 ///Network ON
                 Log.d("ConnManager", "MainActivity: IN TRUE")

@@ -24,7 +24,6 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.google.android.material.color.MaterialColors
 import com.rohan.newsexplorer.R
 import com.rohan.newsexplorer.data.model.NData
 import com.rohan.newsexplorer.databinding.DownloadsNewsItemBinding
@@ -32,7 +31,6 @@ import com.rohan.newsexplorer.databinding.NewItemLayoutBinding
 import com.rohan.newsexplorer.ui.adapters.click_listeners.DoubleClickListener
 import com.rohan.newsexplorer.ui.adapters.click_listeners.DownloadsItemOnClick
 import com.rohan.newsexplorer.ui.adapters.click_listeners.NewsItemOnClick
-import com.rohan.newsexplorer.ui.view_models.NewsItemVm
 import com.rohan.newsexplorer.utils.Constants.DOWNLOADS
 import com.rohan.newsexplorer.utils.Constants.HOME
 
@@ -77,10 +75,9 @@ class NewsAdapter(private val typeTag: Int) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindTo(nData: NData, position: Int) {
-            val newsItemVm = NewsItemVm(nData)
-            binding.itemVm = newsItemVm
+            binding.nData = nData
             Glide.with(binding.root)
-                .load(newsItemVm.img)
+                .load(nData.imageUrl)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
@@ -133,7 +130,7 @@ class NewsAdapter(private val typeTag: Int) :
             }
 
             binding.descriptionTV.text =
-                descriptionTextConfigH(nData.content, newsItemVm.readMoreUrl ?: "")
+                descriptionTextConfigH(nData.content, nData.readMoreUrl ?: "")
             binding.descriptionTV.isClickable = true;
             binding.descriptionTV.movementMethod = LinkMovementMethod.getInstance()
         }
@@ -143,10 +140,9 @@ class NewsAdapter(private val typeTag: Int) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindTo(nData: NData) {
-            val newsItemVm = NewsItemVm(nData)
-            binding.itemVm = newsItemVm
+            binding.nData = nData
             Glide.with(binding.root)
-                .load(newsItemVm.img)
+                .load(nData.imageUrl)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
@@ -179,7 +175,7 @@ class NewsAdapter(private val typeTag: Int) :
             binding.downloadsDescripTV.text =
                 descriptionTextConfigD(
                     nData.content,
-                    newsItemVm.readMoreUrl!!,
+                    nData.readMoreUrl!!,
                     binding.downloadsDescripTV
                 )
             binding.downloadsDescripTV.isClickable = true;

@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.google.android.material.snackbar.Snackbar
 import com.rohan.newsexplorer.data.model.NData
+import com.rohan.newsexplorer.data.repository.HandshakeRepository
 import com.rohan.newsexplorer.databinding.FragmentHomeBinding
 import com.rohan.newsexplorer.ui.adapters.NewsAdapter
 import com.rohan.newsexplorer.ui.adapters.click_listeners.NewsItemOnClick
@@ -64,10 +65,9 @@ class HomeFragment : Fragment(), NewsItemOnClick {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        HandshakeRepository.instance.fetchAndActivate()
 
         mainViewModel.networkLiveData.observe(viewLifecycleOwner) {
 
@@ -81,17 +81,14 @@ class HomeFragment : Fragment(), NewsItemOnClick {
         binding.searchView.clearFocus()
         val navCtrl = findNavController()
 
-
         //RecyclerView Setup
         binding.newsRecyclerView.adapter = newsAdapter
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.newsRecyclerView)
 
         //Click Listeners
-        binding.discoverTV.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToDiscoverFragment()
-            navCtrl.navigate(action)
-        }
+        discoverFeatureConfig()
+
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -120,7 +117,6 @@ class HomeFragment : Fragment(), NewsItemOnClick {
             mainViewModel.fetchNewsData(DEFAULT_CATEGORY)
         }
 
-
         //Manage UI State
         mainViewModel.homeNewsUiState.observe(viewLifecycleOwner) {
             binding.homeShimmer.isVisible = it is UiState.Loading
@@ -148,6 +144,19 @@ class HomeFragment : Fragment(), NewsItemOnClick {
         if (mainViewModel.newsDataList.isEmpty()) mainViewModel.fetchNewsData(DEFAULT_CATEGORY)
     }
 
+    //Discover Feature based on RemoteConfig Values
+    private fun discoverFeatureConfig() {
+        if (HandshakeRepository.isDiscoverEnabled()) {
+            binding.discoverTV.visibility = VISIBLE
+            binding.discoverTV.text = HandshakeRepository.getDiscoverTitle()
+            binding.discoverTV.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToDiscoverFragment()
+                findNavController().navigate(action)
+            }
+        } else {
+            binding.discoverTV.visibility = GONE
+        }
+    }
 
     private fun searchNews(query: String) {
         var dataList: List<NData> = mainViewModel.newsDataList
@@ -167,6 +176,11 @@ class HomeFragment : Fragment(), NewsItemOnClick {
         _binding = null
     }
 
+    private fun Snackbar.withColor(@ColorInt colorInt: Int): Snackbar {
+        this.view.setBackgroundColor(colorInt)
+        return this
+    }
+
     //News Recycler View Click Callbacks---------
     override fun onTitleDoubleTap(nData: NData) {
         mainViewModel.downloadNews(nData)
@@ -179,11 +193,6 @@ class HomeFragment : Fragment(), NewsItemOnClick {
             .setTextColor(android.graphics.Color.parseColor("#ffffff"))
             .setActionTextColor(android.graphics.Color.parseColor("#f5c747"))
         snackBar.show()
-    }
-
-    private fun Snackbar.withColor(@ColorInt colorInt: Int): Snackbar {
-        this.view.setBackgroundColor(colorInt)
-        return this
     }
 
     override fun onReadMore(readMoreUrl: String) {

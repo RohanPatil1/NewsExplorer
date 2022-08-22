@@ -5,10 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="itemVm"
-            type="com.rohan.newsexplorer.ui.view_models.NewsItemVm" />
+            name="nData"
+            type="com.rohan.newsexplorer.data.model.NData" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -36,8 +35,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-             />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <View
@@ -55,8 +53,8 @@
                 android:fontFamily="serif"
                 android:maxLines="3"
                 android:paddingTop="8dp"
-                android:paddingEnd="8dp"
-                android:text="@{itemVm.title}"
+                android:paddingRight="8dp"
+                android:text="@{nData.title}"
                 android:textColor="?attr/colorOnSecondary"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -71,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:alpha="0.7"
-                android:paddingEnd="8dp"
+                android:paddingRight="8dp"
                 android:textColor="?attr/colorOnSecondary"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/downloadsAuthorTV"
@@ -84,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="@{itemVm.author}"
+                android:text="@{nData.author}"
                 android:textColor="#2196F3"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -114,7 +112,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="16dp"
                 android:alpha="0.7"
-                android:text="@{itemVm.date}"
+                android:text="@{nData.date}"
                 android:textColor="?attr/colorOnSecondary"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"

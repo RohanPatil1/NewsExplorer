@@ -47,4 +47,5 @@ object NetworkModule {
     fun provideNotificationUpdates(@ApplicationContext context: Context,newsRepository: NewsRepository): NewsUpdatesNotification {
         return NewsUpdatesNotification(context,newsRepository)
     }
+
 }
