@@ -76,7 +76,7 @@ class NewsWidgetService : RemoteViewsService() {
 
                 }
             }
-            getViewAt(1)
+            getViewAt(0)
         }
 
         override fun onDestroy() {
@@ -88,7 +88,7 @@ class NewsWidgetService : RemoteViewsService() {
 
         override fun getViewAt(position: Int): RemoteViews {
 
-            val views: RemoteViews = RemoteViews(mContext.packageName, R.layout.new_item_layout)
+            val views: RemoteViews = RemoteViews(mContext.packageName, R.layout.widget_item_layout)
             views.setTextViewText(R.id.stackItemTitle, dataList[position].title)
 //            try {
 //                val glideWidgetTarget = AppWidgetTarget(

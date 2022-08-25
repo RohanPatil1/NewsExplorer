@@ -3,12 +3,16 @@ package com.rohan.newsexplorer.news_widget
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.widget.RemoteViews
 import com.rohan.newsexplorer.R
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Implementation of App Widget functionality.
  */
+@AndroidEntryPoint
 class NewAppWidget : AppWidgetProvider() {
     override fun onUpdate(
         context: Context,
@@ -35,10 +39,16 @@ internal fun updateAppWidget(
     appWidgetManager: AppWidgetManager,
     appWidgetId: Int
 ) {
-    val widgetText = context.getString(R.string.appwidget_text)
+
+    val serviceIntent = Intent(context, NewsWidgetService::class.java)
+    serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+    serviceIntent.data = Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME))
+
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.new_app_widget)
-
+//    views.setTextViewText(R.id.widgetTitle, widgetText)
+    views.setRemoteAdapter(R.id.widgetStackView, serviceIntent)
+    views.setEmptyView(R.id.widgetStackView, R.id.widgetEmptyView)
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }

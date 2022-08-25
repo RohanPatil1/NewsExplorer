@@ -20,7 +20,6 @@
         tools:targetApi="31">
         <receiver
             android:name=".news_widget.NewAppWidget"
-            android:enabled="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -51,8 +50,10 @@
             tools:node="remove" />
         <service
             android:name=".news_widget.NewsWidgetService"
-            android:enabled="true" />
-
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            />
         <receiver android:name=".ui.worker.AlarmReceiver" />
         <receiver
             android:name=".ui.worker.BootCompleteReceiver"
