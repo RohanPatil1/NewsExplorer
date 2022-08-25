@@ -6,6 +6,9 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.rohan.newsexplorer.R
 import java.util.concurrent.TimeUnit
 
+/*
+    Handles Remote Configuration
+ */
 
 object HandshakeRepository {
 
@@ -21,7 +24,7 @@ object HandshakeRepository {
         instance.setConfigSettingsAsync(configSettings)
         instance.setDefaultsAsync(R.xml.remote_config_defaults)
         fetch()
-        Log.d("Application", "Handshake Init Done")
+        Log.d("HandshakeRepository", "Handshake Init Done")
     }
 
     private fun fetch() {
@@ -29,10 +32,8 @@ object HandshakeRepository {
         fetch.addOnCompleteListener {
             if (it.isSuccessful) {
                 instance.activate()
-                Log.d("Application", "Fetch and activate succeeded")
-
             } else {
-                Log.d("Application", "Fetch failed")
+                Log.d("HandshakeRepository", "Fetch failed")
             }
         }
     }

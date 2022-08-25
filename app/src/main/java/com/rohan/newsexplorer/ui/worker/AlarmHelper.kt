@@ -5,6 +5,7 @@ import android.app.Application
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.SystemClock
 import com.rohan.newsexplorer.utils.Constants
 import java.util.*
 
@@ -48,10 +49,10 @@ object AlarmHelper {
         )
 
         //Test
-        //        alarmManger.setInexactRepeating(
-        //            AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime()+1000,
-        //            60*1000, alarmPendingIntent
-        //        )
+        //alarmManger.setInexactRepeating(
+        //AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 1000,
+        //60 * 1000, alarmPendingIntent
+        // )
 
     }
 

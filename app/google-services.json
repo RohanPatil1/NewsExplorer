@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "915691546396",
+    "project_id": "newsexplorer-7d292",
+    "storage_bucket": "newsexplorer-7d292.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915691546396:android:418d7287953dcd0be2bcd9",
+        "android_client_info": {
+          "package_name": "com.rohan.newsexplorer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915691546396-pja2i3fspgvmtndnln85fg415b1m74t2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrCKslpyv7rUHcmJT0qUhvJ4qulp7myok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915691546396-pja2i3fspgvmtndnln85fg415b1m74t2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

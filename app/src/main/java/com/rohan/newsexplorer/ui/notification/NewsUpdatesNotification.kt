@@ -28,22 +28,9 @@ class NewsUpdatesNotification @Inject constructor(
 
     private val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    lateinit var dataList: List<NData>
 
-    // NOTE - This will run on the WorkerThread and not the MainThread
-    fun showNotification() {
-
-        //Prepare Data
-        when (val d = newsRepository.fetchDownloadedNews()) {
-            is DataResult.Error -> {
-                //Don't show notification
-                Log.d("Worker", "NO Notification")
-                return
-            }
-            is DataResult.Success -> {
-                dataList = d.data.newDataList
-            }
-        }
+    // NOTE - This will be called on the WorkerThread and not the MainThread
+    fun showNotification(dataForNotification: NData) {
 
         //Prepare Views (Small & Big)
         val collapsedRemoteView =
@@ -73,9 +60,6 @@ class NewsUpdatesNotification @Inject constructor(
             .build()
 
 
-        //Setting data in RemoteViews
-        val randomIndex: Int = (0..dataList.size).random()
-        val dataForNotification = dataList[randomIndex]
         setCollapsedView(collapsedRemoteView, dataForNotification, notification)
         setExpandedView(expandedRemoteView, dataForNotification, notification)
         notificationManager.notify(1, notification)

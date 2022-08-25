@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defaults>
+  <entry>
+    <key>discover_title</key>
+    <value>Discover</value>
+  </entry>
+  <entry>
+    <key>is_discover_enabled</key>
+    <value>true</value>
+  </entry>
+  <entry>
+    <key>tip_title</key>
+    <value>Double click to save articles</value>
+  </entry>
+</defaults>
