@@ -19,7 +19,8 @@
         android:theme="@style/Theme.NewsExplorer"
         tools:targetApi="31">
         <receiver
-            android:name=".NewAppWidget"
+            android:name=".news_widget.NewAppWidget"
+            android:enabled="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -48,6 +49,9 @@
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             tools:node="remove" />
+        <service
+            android:name=".news_widget.NewsWidgetService"
+            android:enabled="true" />
 
         <receiver android:name=".ui.worker.AlarmReceiver" />
         <receiver
