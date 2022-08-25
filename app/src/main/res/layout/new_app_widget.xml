@@ -1,19 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/Widget.NewsExplorer.AppWidget.Container"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     android:theme="@style/Theme.NewsExplorer.AppWidgetContainer">
 
-    <TextView
-        android:id="@+id/appwidget_text"
-        style="@style/Widget.NewsExplorer.AppWidget.InnerView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:background="@mipmap/ic_launcher_background"
+        android:gravity="center_vertical">
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/fact"-->
+        <!--            android:layout_width="200dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:duplicateParentState="true"-->
+        <!--            android:ellipsize="marquee"-->
+        <!--            android:focusable="true"-->
+        <!--            android:focusableInTouchMode="true"-->
+        <!--            android:marqueeRepeatLimit="marquee_forever"-->
+        <!--            android:scrollHorizontally="true"-->
+        <!--            android:singleLine="true"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:text="Loading... More text to see if it spans or not and want more">-->
+
+        <!--            <requestFocus-->
+        <!--                android:duplicateParentState="true"-->
+        <!--                android:focusable="true"-->
+        <!--                android:focusableInTouchMode="true" />-->
+        <!--        </TextView>-->
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher_foreground" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Today's Headlines"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/widgetStackView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:loopViews="true" />
+
+        <TextView
+            android:id="@+id/widgetEmptyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:text="You don't have any news..."
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!--        <FrameLayout-->
+        <!--            android:layout_width="24dp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_gravity="start"-->
+        <!--            android:layout_weight="0.25"-->
+        <!--            android:background="@color/purple_700">-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="250dp"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:layout_gravity="center|center_vertical"-->
+        <!--                android:gravity="center"-->
+        <!--                android:rotation="-90"-->
+        <!--                android:marqueeRepeatLimit="marquee_forever"-->
+        <!--                android:ellipsize="marquee"-->
+        <!--                android:text="News Explorer News Explorer  "-->
+
+        <!--                android:textColor="@color/white" />-->
+        <!--        </FrameLayout>-->
+
+
+    </FrameLayout>
+
 </LinearLayout>
