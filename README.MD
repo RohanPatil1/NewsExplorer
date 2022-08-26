@@ -10,8 +10,8 @@ convenience.
 
 # Working
 
-[Demo Video](https://youtu.be/FYAJ52PTVHE)
-[Widget](https://youtube.com/shorts/ocBrdFYgPYw)
+- [Demo Video](https://youtu.be/FYAJ52PTVHE)
+- [Widget](https://youtube.com/shorts/ocBrdFYgPYw)
 
 # Components
 - Android - Kotlin
