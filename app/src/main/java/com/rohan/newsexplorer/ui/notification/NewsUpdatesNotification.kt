@@ -39,16 +39,6 @@ class NewsUpdatesNotification @Inject constructor(
         val expandedRemoteView =
             RemoteViews(context.packageName, R.layout.notification_expanded_layout)
 
-
-        //Click event using PendingIntent
-//        val activityIntent = Intent(context, MainActivity::class.java)
-//        val activityPendingIntent = PendingIntent.getActivity(
-//            context,
-//            1,
-//            activityIntent,
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
-//        )
-
         //Send To Details Screen onClick of notification using Deeplink
         val detailsPendingIntent = NavDeepLinkBuilder(context)
             .setGraph(R.navigation.main_nav_graph)

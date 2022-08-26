@@ -4,13 +4,16 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
+import androidx.navigation.NavDeepLinkBuilder
 import com.bumptech.glide.Glide
 import com.rohan.newsexplorer.R
 import com.rohan.newsexplorer.data.model.NData
 import com.rohan.newsexplorer.data.repository.NewsRepository
+import com.rohan.newsexplorer.ui.fragments.DetailsFragmentArgs
 import com.rohan.newsexplorer.utils.DataResult
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -90,21 +93,14 @@ class NewsWidgetService : RemoteViewsService() {
 
             val views: RemoteViews = RemoteViews(mContext.packageName, R.layout.widget_item_layout)
             views.setTextViewText(R.id.stackItemTitle, dataList[position].title)
-//            try {
-//                val glideWidgetTarget = AppWidgetTarget(
-//                    appContext,
-//                    R.id.stackItemImage,
-//                    views,appWidgetId
-//                )
-//                Glide
-//                    .with(appContext)
-//                    .asBitmap()
-//                    .load(dataList[position].imageUrl)
-//                    .into(glideWidgetTarget)
-//            } catch (e: Exception) {
-//                    Log.d("NewsWidget","GLIDE ERROR")
-//                    Log.d("NewsWidget","${e.message}")
-//            }
+            val detailsPendingIntent = NavDeepLinkBuilder(mContext)
+                .setGraph(R.navigation.main_nav_graph)
+                .setDestination(R.id.details_fragment)
+                .setArguments(DetailsFragmentArgs(dataList[position]).toBundle())
+                .createPendingIntent()
+            views.setOnClickPendingIntent(R.id.widgetItemRoot,detailsPendingIntent)
+
+            //SetUp Image using Glide
             try {
                 val bitmap: Bitmap = Glide.with(appContext)
                     .asBitmap()
@@ -117,8 +113,6 @@ class NewsWidgetService : RemoteViewsService() {
                 Log.d("NewsWidget", "GLIDE ERROR")
                 Log.d("NewsWidget", "${e.message}")
             }
-
-
 
             return views
         }
