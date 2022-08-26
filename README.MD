@@ -20,6 +20,7 @@ NewsExplorer is a news app that fetches news articles of different catergories a
 - WorkManger
 - Local Notifications
 - Android AppWidget
+- [SpeedMarquee](https://github.com/RohanPatil1/SpeedMarquee)
 
  # Screenshots
 <img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/ss1.jpg" width="360" height="777" />
