@@ -8,19 +8,20 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import android.widget.RemoteViews
+import androidx.navigation.NavDeepLinkBuilder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.NotificationTarget
 import com.rohan.newsexplorer.R
 import com.rohan.newsexplorer.data.model.NData
 import com.rohan.newsexplorer.data.repository.NewsRepository
 import com.rohan.newsexplorer.ui.activity.MainActivity
+import com.rohan.newsexplorer.ui.fragments.DetailsFragmentArgs
 import com.rohan.newsexplorer.utils.DataResult
 import javax.inject.Inject
 
 
 class NewsUpdatesNotification @Inject constructor(
-    private val context: Context,
-    private val newsRepository: NewsRepository
+    private val context: Context
 ) {
     companion object {
         const val NEWS_CHANNEL_ID = "NewsChannel"
@@ -40,20 +41,27 @@ class NewsUpdatesNotification @Inject constructor(
 
 
         //Click event using PendingIntent
-        val activityIntent = Intent(context, MainActivity::class.java)
-        val activityPendingIntent = PendingIntent.getActivity(
-            context,
-            1,
-            activityIntent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
-        )
+//        val activityIntent = Intent(context, MainActivity::class.java)
+//        val activityPendingIntent = PendingIntent.getActivity(
+//            context,
+//            1,
+//            activityIntent,
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+//        )
+
+        //Send To Details Screen onClick of notification using Deeplink
+        val detailsPendingIntent = NavDeepLinkBuilder(context)
+            .setGraph(R.navigation.main_nav_graph)
+            .setDestination(R.id.details_fragment)
+            .setArguments(DetailsFragmentArgs(dataForNotification).toBundle())
+            .createPendingIntent()
 
         //Notification Builder
         val notification = Notification.Builder(context, NEWS_CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher)
 //            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentTitle("Daily News Updates")
-            .setContentIntent(activityPendingIntent)
+            .setContentIntent(detailsPendingIntent)
             .setCustomContentView(collapsedRemoteView)
 //            .setContent(collapsedRemoteView)
 //            .setCustomBigContentView(expandedRemoteView)

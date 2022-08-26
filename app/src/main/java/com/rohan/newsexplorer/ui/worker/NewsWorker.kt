@@ -52,7 +52,8 @@ class NewsWorker @AssistedInject constructor(
     private suspend fun prepareData(): NData? {
         lateinit var dataList: List<NData>
 
-        when (val d = newsRepository.fetchNewsData("all")) {
+        //ForceRefresh - Fetch new data from api , clear & update cache
+        when (val d = newsRepository.fetchNewsData("all", forceRefresh = true)) {
             is DataResult.Error -> {
                 //Don't show notification
                 Log.d("Worker", "NO Notification")

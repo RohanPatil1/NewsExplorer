@@ -17,20 +17,28 @@ class NewsRepository @Inject constructor(
     private val newsApiService: NewsApiService,
     private val newsDao: NewsDao,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-
 ) {
-    suspend fun fetchNewsData(category: String): DataResult<NewsData> {
-        return try {
-            val cachedNews = newsDao.getNewsList()
-            if (cachedNews.isNullOrEmpty()) {
-                Log.d("ROHANR", "DB IS NULL")
-            } else {
-                Log.d("ROHANR", "DB IS  NOT NULL")
-                val nData = NewsData(category = category, success = true, newDataList = cachedNews)
-                return DataResult.Success(nData)
-            }
-            Log.d("ROHANR", "API CALLING TO BE MADE")
 
+    //ForceRefresh - Fetch new data from api , clear & update cache
+    suspend fun fetchNewsData(
+        category: String,
+        forceRefresh: Boolean = false
+    ): DataResult<NewsData> {
+        return try {
+
+            //If not forceRefresh, try to return the cached data from RoomDB
+            if (!forceRefresh) {
+                val cachedNews = newsDao.getNewsList()
+                if (cachedNews.isNullOrEmpty()) {
+                    Log.d("ROHANR", "DB IS NULL")
+                } else {
+                    Log.d("ROHANR", "DB IS  NOT NULL")
+                    val nData =
+                        NewsData(category = category, success = true, newDataList = cachedNews)
+                    return DataResult.Success(nData)
+                }
+                Log.d("ROHANR", "API CALLING TO BE MADE")
+            }
             val response = newsApiService.getNewsData(category)
 
             if (response.isSuccessful) {

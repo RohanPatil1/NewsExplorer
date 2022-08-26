@@ -49,11 +49,10 @@ object AlarmHelper {
         )
 
         //Test
-        //alarmManger.setInexactRepeating(
-        //AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 1000,
-        //60 * 1000, alarmPendingIntent
-        // )
+//        alarmManger.setInexactRepeating(
+//            AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 1000,
+//            60 * 2000, alarmPendingIntent
+//        )
 
     }
-
 }

@@ -42,10 +42,4 @@ object NetworkModule {
         return ConnectionLiveData(context)
     }
 
-    @Singleton
-    @Provides
-    fun provideNotificationUpdates(@ApplicationContext context: Context,newsRepository: NewsRepository): NewsUpdatesNotification {
-        return NewsUpdatesNotification(context,newsRepository)
-    }
-
 }
