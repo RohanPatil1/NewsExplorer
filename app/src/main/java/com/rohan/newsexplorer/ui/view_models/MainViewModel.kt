@@ -43,15 +43,15 @@ class MainViewModel @Inject constructor(
     val discoverNewsUiState: LiveData<UiState<NewsData>> = _discoverNewsUiState
     var discoverNewsList: List<NData> = listOf()
 
-    init {
-        getDownloadedNews()
-    }
+//    init {
+//        getDownloadedNews()
+//    }
 
     //Fetch News For Feed in HomeFragment
-    fun fetchNewsData(category: String) {
+    fun fetchNewsData(category: String, forceRefresh: Boolean = false) {
         _homeNewsUiState.value = UiState.Loading
         viewModelScope.launch(ioDispatcher) {
-            when (val apiResult = newsRepository.fetchNewsData(category)) {
+            when (val apiResult = newsRepository.fetchNewsData(category, forceRefresh)) {
                 is DataResult.Error -> {
                     _homeNewsUiState.postValue(UiState.Error(apiResult.exception.message.toString()))
                 }

@@ -23,7 +23,7 @@ interface NewsDao {
     @Delete
     fun deleteNews(nData: NData)
 
-    @Delete
-    fun deleteAllNews(newsDataList: List<NData>)
+    @Query("DELETE FROM newsTable")
+    fun deleteAll()
 
 }

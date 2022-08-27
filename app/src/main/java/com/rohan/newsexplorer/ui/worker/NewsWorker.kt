@@ -12,6 +12,10 @@ import com.rohan.newsexplorer.ui.notification.NewsUpdatesNotification
 import com.rohan.newsexplorer.utils.DataResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 /*
@@ -33,7 +37,20 @@ class NewsWorker @AssistedInject constructor(
 //            .isAutoStartPermissionAvailable(applicationContext)
 
         //Prepare Data
-        val dataForNotification = prepareData()
+        val dataForNotification = withContext(Dispatchers.IO) {
+            when (val d = newsRepository.fetchNewsData("entertainment", forceRefresh = true)) {
+                is DataResult.Error -> {
+                    //Don't show notification
+                    Log.d("Worker", "NO Notification")
+                    null
+                }
+                is DataResult.Success -> {
+                    Log.d("Worker", "SUCCESS GOT DATA")
+                    val dataList = d.data.newDataList
+                    dataList[(0..dataList.size).random()]
+                }
+            }
+        }
 
         dataForNotification?.let {
             Log.d("Worker", "Non Null Data")
@@ -42,31 +59,8 @@ class NewsWorker @AssistedInject constructor(
 
         if (dataForNotification == null) {
             Log.d("Worker", "Null Data")
-
-            return Result.retry()
+            return Result.failure()
         }
         return Result.success()
-    }
-
-
-    private suspend fun prepareData(): NData? {
-        lateinit var dataList: List<NData>
-
-        //ForceRefresh - Fetch new data from api , clear & update cache
-        when (val d = newsRepository.fetchNewsData("all", forceRefresh = true)) {
-            is DataResult.Error -> {
-                //Don't show notification
-                Log.d("Worker", "NO Notification")
-                return null
-            }
-            is DataResult.Success -> {
-                Log.d("Worker", "SUCCESS")
-                dataList = d.data.newDataList
-            }
-        }
-
-        //Data shown in notifications
-        val randomIndex: Int = (0..dataList.size).random()
-        return dataList[randomIndex]
     }
 }

@@ -18,11 +18,17 @@
         android:orientation="vertical"
         tools:context=".features.discover.ui.HomeFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/newsRecyclerView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/homeSwipeRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/newsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
         <LinearLayout

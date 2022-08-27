@@ -59,6 +59,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
+    //SwipeRefresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData

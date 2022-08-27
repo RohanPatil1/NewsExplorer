@@ -23,37 +23,38 @@ class NewsRepository @Inject constructor(
     ): DataResult<NewsData> {
         return try {
 
-            //If not forceRefresh, try to return the cached data from RoomDB
+            //If not forceRefresh, try to return the cached data from DB
             if (!forceRefresh) {
                 val cachedNews = newsDao.getNewsList()
-                if (cachedNews.isNullOrEmpty()) {
-                    Log.d("ROHANR", "DB IS NULL")
-                } else {
-                    Log.d("ROHANR", "DB IS  NOT NULL")
+                if (!cachedNews.isNullOrEmpty()) {
                     val nData =
                         NewsData(category = category, success = true, newDataList = cachedNews)
                     return DataResult.Success(nData)
                 }
-                Log.d("ROHANR", "API CALLING TO BE MADE")
             }
+
             val response = newsApiService.getNewsData(category)
 
             if (response.isSuccessful) {
-                newsDao.deleteAllNews(response.body()!!.newDataList)
+                //Clear DB
+                newsDao.deleteAll()
+
+                //Filter dataList by excluding null "readMoreUrl" entities
                 val verifiedNewsList = arrayListOf<NData>()
                 for (nData in response.body()!!.newDataList) {
                     if (nData.readMoreUrl == null) continue
                     verifiedNewsList.add(nData)
                 }
-                newsDao.insertAll(verifiedNewsList)
+
+                //Update DB
+                newsDao.insertAll(verifiedNewsList.toList())
                 DataResult.Success(response.body()!!)
             } else {
-                response.errorBody()?.toString()?.let { Log.d("ROHAN", it) }
+                response.errorBody()?.toString()?.let { Log.d(TAG, it) }
                 DataResult.Error(Exception(response.errorBody()?.toString() ?: ""))
             }
         } catch (e: Exception) {
-            Log.d("ROHAN", "GOT ERROR")
-            Log.d("ROHAN", e.message.toString())
+            Log.d(TAG, e.message.toString())
             if (e.message.toString().contains("Unable to resolve host"))
                 DataResult.Error(Exception("You're offline"))
             else
@@ -61,6 +62,7 @@ class NewsRepository @Inject constructor(
         }
     }
 
+    //Fetch News For Discover Section
     suspend fun fetchDiscoverNewsData(category: String): DataResult<NewsData> {
         return try {
             val response = newsApiService.getNewsData(category)
@@ -72,12 +74,11 @@ class NewsRepository @Inject constructor(
                 }
                 DataResult.Success(response.body()!!)
             } else {
-                response.errorBody()?.toString()?.let { Log.d("ROHAN", it) }
+                response.errorBody()?.toString()?.let { Log.d(TAG, it) }
                 DataResult.Error(Exception(response.errorBody()?.toString() ?: ""))
             }
         } catch (e: Exception) {
-            Log.d("ROHAN", "GOT ERROR")
-            Log.d("ROHAN", e.message.toString())
+            Log.d(TAG, e.message.toString())
             if (e.message.toString().contains("Unable to resolve host"))
                 DataResult.Error(Exception("You're offline"))
             else
@@ -89,43 +90,41 @@ class NewsRepository @Inject constructor(
         return try {
             val cachedNews = newsDao.getNewsList()
             return if (cachedNews.isNullOrEmpty()) {
-                Log.d("ROHAN", "[Downloads] DB IS NULL")
+                Log.d(TAG, "DB IS NULL")
                 DataResult.Error(Exception("You don't have any downloaded news"))
             } else {
-                Log.d("ROHAN", "[Downloads] DB IS  NOT NULL")
+                Log.d(TAG, "DB IS  NOT NULL")
                 val nData =
                     NewsData(category = "downloads", success = true, newDataList = cachedNews)
                 DataResult.Success(nData)
             }
         } catch (e: Exception) {
-            Log.d("ROHAN", "[Downloads] GOT ERROR")
-            Log.d("ROHAN", e.message.toString())
+            Log.d(TAG, e.message.toString())
             if (e.message.toString().contains("Unable to resolve host"))
                 DataResult.Error(Exception("No internet connection..."))
             else
                 DataResult.Error(e)
         }
-
     }
-
 
     suspend fun saveNewsToDb(news: NData) {
         try {
             newsDao.insert(news)
         } catch (e: Exception) {
-            Log.d("ROHAN", "[Downloads] Could not save")
+            Log.d(TAG, "Could not save")
         }
     }
-
 
     fun deleteNews(news: NData) {
         try {
             newsDao.deleteNews(news)
         } catch (e: Exception) {
-            Log.d("ROHAN", "[Downloads] Could not save")
+            Log.d(TAG, "Could not save")
         }
     }
 
-
+    companion object {
+        const val TAG = "NewsRepository"
+    }
 
 }

@@ -113,6 +113,11 @@ class HomeFragment : Fragment(), NewsItemOnClick {
             mainViewModel.fetchNewsData(DEFAULT_CATEGORY)
         }
 
+        binding.homeSwipeRefresh.setOnRefreshListener {
+            mainViewModel.fetchNewsData("startup", true)
+            binding.homeSwipeRefresh.isRefreshing = false
+        }
+
         //Manage UI State
         mainViewModel.homeNewsUiState.observe(viewLifecycleOwner) {
             binding.homeShimmer.isVisible = it is UiState.Loading
@@ -137,7 +142,8 @@ class HomeFragment : Fragment(), NewsItemOnClick {
         }
 
         //Fetch Data
-        if (mainViewModel.newsDataList.isEmpty()) mainViewModel.fetchNewsData(DEFAULT_CATEGORY)
+        Log.d("ROHANR", "Home fetchNewsData()")
+        mainViewModel.fetchNewsData(DEFAULT_CATEGORY)
     }
 
     //Discover Feature based on RemoteConfig Values
