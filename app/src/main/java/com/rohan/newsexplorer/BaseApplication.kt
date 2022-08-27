@@ -1,12 +1,13 @@
 package com.rohan.newsexplorer
 
-import android.app.*
+import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
-import com.judemanutd.autostarter.AutoStartPermissionHelper
 import com.rohan.newsexplorer.data.repository.HandshakeRepository
 import com.rohan.newsexplorer.ui.notification.NewsUpdatesNotification.Companion.NEWS_CHANNEL_ID
 import com.rohan.newsexplorer.ui.worker.AlarmHelper
@@ -22,7 +23,7 @@ class BaseApplication : Application(), Configuration.Provider {
         Log.d("Application", "Application onCreate()")
 
         //Request "Auto-Start" permission, required for Chinese OEMs for smooth functioning of WorkManager
-//        AutoStartPermissionHelper.getInstance().getAutoStartPermission(applicationContext)
+        //AutoStartPermissionHelper.getInstance().getAutoStartPermission(applicationContext)
 
         createNotificationChannel()
 
