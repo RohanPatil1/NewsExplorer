@@ -43,10 +43,6 @@ class MainViewModel @Inject constructor(
     val discoverNewsUiState: LiveData<UiState<NewsData>> = _discoverNewsUiState
     var discoverNewsList: List<NData> = listOf()
 
-//    init {
-//        getDownloadedNews()
-//    }
-
     //Fetch News For Feed in HomeFragment
     fun fetchNewsData(category: String, forceRefresh: Boolean = false) {
         _homeNewsUiState.value = UiState.Loading
@@ -72,7 +68,7 @@ class MainViewModel @Inject constructor(
                     _downloadsNewsUiState.postValue(UiState.Error(d.exception.message.toString()))
                 }
                 is DataResult.Success -> {
-                    Log.d("MainViewModel", "Downloaded List: " + d.data.newDataList.size)
+                    Log.d(TAG, "Downloaded List: " + d.data.newDataList.size)
                     downloadedNewsList = d.data.newDataList.toMutableList()
                     _downloadsNewsUiState.postValue(UiState.Success(d.data))
                 }
@@ -126,4 +122,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    companion object {
+        const val TAG = "MainViewModel"
+    }
 }

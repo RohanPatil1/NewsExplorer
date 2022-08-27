@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.BlendMode
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,6 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.rohan.newsexplorer.R
 import com.rohan.newsexplorer.data.model.NData
 import com.rohan.newsexplorer.databinding.DiscoverNewsItemLargeBinding
 import com.rohan.newsexplorer.databinding.DiscoverNewsItemSmallBinding
@@ -83,7 +81,6 @@ class DiscoverNewsAdapter : ListAdapter<NData, RecyclerView.ViewHolder>(diffUtil
 
             binding.discoverCatTitleLargeTV.isSelected = true
             binding.marqTV.text = nData.title
-            binding.marqTV.isSelected = true
 
             binding.discoverLBottomShadow.backgroundTintList = ColorStateList.valueOf(
                 getRandomColor()
