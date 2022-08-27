@@ -40,13 +40,11 @@ class HomeFragment : Fragment(), NewsItemOnClick {
         get() = _binding!!
 
     private lateinit var newsAdapter: NewsAdapter
-    //private lateinit var connectionLiveData: ConnectionLiveData
 
     private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //  connectionLiveData = ConnectionLiveData(requireContext())
         newsAdapter = NewsAdapter(HOME)
         newsAdapter.newsItemClickListener = this
         newsAdapter.mContext = requireContext()
@@ -66,10 +64,10 @@ class HomeFragment : Fragment(), NewsItemOnClick {
         HandshakeRepository.instance.fetchAndActivate()
 
         mainViewModel.networkLiveData.observe(viewLifecycleOwner) {
-
             val hasNewsData = mainViewModel.newsDataList.isNotEmpty()
+
+            //If Cache data is Empty & Network connection available
             if (!hasNewsData && it) {
-                Log.d("ConnManager", "HomeFragment: Cond2")
                 mainViewModel.fetchNewsData(DEFAULT_CATEGORY)
             }
         }
@@ -82,20 +80,20 @@ class HomeFragment : Fragment(), NewsItemOnClick {
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.newsRecyclerView)
 
-        //Click Listeners
+        //Feature Config Setup
         discoverFeatureConfig()
 
-
+        //Click Listeners
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 searchNews(query)
                 return false
             }
-
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
         })
+
         binding.searchView.setOnCloseListener {
             binding.searchView.setQuery("", false)
             binding.searchView.clearFocus()
@@ -123,7 +121,7 @@ class HomeFragment : Fragment(), NewsItemOnClick {
             binding.homeShimmer.isVisible = it is UiState.Loading
 
             if (it is UiState.Success) {
-                Log.d("ROHAN", "onCreate: " + it.data.newDataList.size)
+                Log.d("HomeFragment", "onViewCreated: " + it.data.newDataList.size)
                 binding.homeErrorView.visibility = GONE
                 newsAdapter.submitList(it.data.newDataList)
             } else if (it is UiState.Error) {
@@ -141,9 +139,6 @@ class HomeFragment : Fragment(), NewsItemOnClick {
             }
         }
 
-        //Fetch Data
-        Log.d("ROHANR", "Home fetchNewsData()")
-        mainViewModel.fetchNewsData(DEFAULT_CATEGORY)
     }
 
     //Discover Feature based on RemoteConfig Values
