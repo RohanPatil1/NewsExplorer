@@ -5,6 +5,7 @@ object Constants {
     const val HOME = 0
     const val DOWNLOADS = 1
     const val NOTIFICATION_ALARM_REQ_ID = 12
+    const val DAILY_NEWS_NOTIFICATION_ID = 1
     const val DAILY_8AM_NOTIFICATION = "DAILY_8AM_NOTIFICATION"
     const val DEFAULT_CATEGORY = "world"
     const val DEFAULT_DISCOVER_CATEGORY = "all"

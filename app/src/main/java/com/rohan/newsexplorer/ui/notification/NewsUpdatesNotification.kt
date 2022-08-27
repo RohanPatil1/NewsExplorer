@@ -2,21 +2,15 @@ package com.rohan.newsexplorer.ui.notification
 
 import android.app.Notification
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.os.Build
-import android.util.Log
 import android.widget.RemoteViews
 import androidx.navigation.NavDeepLinkBuilder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.NotificationTarget
 import com.rohan.newsexplorer.R
 import com.rohan.newsexplorer.data.model.NData
-import com.rohan.newsexplorer.data.repository.NewsRepository
-import com.rohan.newsexplorer.ui.activity.MainActivity
 import com.rohan.newsexplorer.ui.fragments.DetailsFragmentArgs
-import com.rohan.newsexplorer.utils.DataResult
+import com.rohan.newsexplorer.utils.Constants.DAILY_NEWS_NOTIFICATION_ID
 import javax.inject.Inject
 
 
@@ -30,7 +24,6 @@ class NewsUpdatesNotification @Inject constructor(
     private val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    // NOTE - This will be called on the WorkerThread and not the MainThread
     fun showNotification(dataForNotification: NData) {
 
         //Prepare Views (Small & Big)
@@ -60,7 +53,7 @@ class NewsUpdatesNotification @Inject constructor(
 
         setCollapsedView(collapsedRemoteView, dataForNotification, notification)
         setExpandedView(expandedRemoteView, dataForNotification, notification)
-        notificationManager.notify(1, notification)
+        notificationManager.notify(DAILY_NEWS_NOTIFICATION_ID, notification)
     }
 
     private fun setCollapsedView(
