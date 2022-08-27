@@ -7,6 +7,7 @@ object Constants {
     const val NOTIFICATION_ALARM_REQ_ID = 12
     const val DAILY_8AM_NOTIFICATION = "DAILY_8AM_NOTIFICATION"
     const val DEFAULT_CATEGORY = "world"
+    const val DEFAULT_DISCOVER_CATEGORY = "all"
     const val TIP_KEY = "TipSharedPref"
     const val SHOULD_DISABLE_TIP = "shouldDisableTip"
     const val CAN_SHOW_ONLINE = "canShowOnline"

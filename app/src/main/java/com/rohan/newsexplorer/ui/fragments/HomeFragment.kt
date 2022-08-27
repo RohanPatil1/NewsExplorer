@@ -16,9 +16,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
@@ -29,7 +26,6 @@ import com.rohan.newsexplorer.databinding.FragmentHomeBinding
 import com.rohan.newsexplorer.ui.adapters.NewsAdapter
 import com.rohan.newsexplorer.ui.adapters.click_listeners.NewsItemOnClick
 import com.rohan.newsexplorer.ui.view_models.MainViewModel
-import com.rohan.newsexplorer.utils.ConnectionLiveData
 import com.rohan.newsexplorer.utils.Constants.DEFAULT_CATEGORY
 import com.rohan.newsexplorer.utils.Constants.HOME
 import com.rohan.newsexplorer.utils.UiState
@@ -183,7 +179,7 @@ class HomeFragment : Fragment(), NewsItemOnClick {
 
     //News Recycler View Click Callbacks---------
     override fun onTitleDoubleTap(nData: NData) {
-        mainViewModel.downloadNews(nData)
+        mainViewModel.saveNewsData(nData)
         val snackBar = Snackbar.make(binding.homeBarLL, "Article Saved...", Snackbar.LENGTH_SHORT)
             .setAction("View all") {
                 val action = HomeFragmentDirections.actionHomeFragmentToDownloadedFragment()

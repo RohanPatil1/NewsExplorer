@@ -9,6 +9,7 @@ import com.rohan.newsexplorer.data.model.NData
 import com.rohan.newsexplorer.data.model.NewsData
 import com.rohan.newsexplorer.data.repository.NewsRepository
 import com.rohan.newsexplorer.utils.ConnectionLiveData
+import com.rohan.newsexplorer.utils.Constants.DEFAULT_DISCOVER_CATEGORY
 import com.rohan.newsexplorer.utils.DataResult
 import com.rohan.newsexplorer.utils.IoDispatcher
 import com.rohan.newsexplorer.utils.UiState
@@ -80,7 +81,7 @@ class MainViewModel @Inject constructor(
     }
 
     //Save news in local db
-    fun downloadNews(newsData: NData) {
+    fun saveNewsData(newsData: NData) {
         downloadedNewsList.add(newsData)
         _downloadsNewsUiState.postValue(
             UiState.Success(
@@ -91,7 +92,7 @@ class MainViewModel @Inject constructor(
             )
         )
         viewModelScope.launch(ioDispatcher) {
-            newsRepository.downloadNews(newsData)
+            newsRepository.saveNewsToDb(newsData)
         }
     }
 
@@ -110,10 +111,10 @@ class MainViewModel @Inject constructor(
     }
 
     //Fetch news for Discover fragment based on category choice
-    fun fetchDiscoverNews(category: String = "all") {
+    fun fetchDiscoverNews(category: String = DEFAULT_DISCOVER_CATEGORY) {
         _discoverNewsUiState.value = UiState.Loading
         viewModelScope.launch(ioDispatcher) {
-            when (val apiResult = newsRepository.fetchNewsData(category)) {
+            when (val apiResult = newsRepository.fetchDiscoverNewsData(category)) {
                 is DataResult.Error -> {
                     _discoverNewsUiState.postValue(UiState.Error(apiResult.exception.message.toString()))
                 }

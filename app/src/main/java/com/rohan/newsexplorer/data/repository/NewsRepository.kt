@@ -7,8 +7,6 @@ import com.rohan.newsexplorer.data.model.NData
 import com.rohan.newsexplorer.data.model.NewsData
 import com.rohan.newsexplorer.data.network.NewsApiService
 import com.rohan.newsexplorer.utils.DataResult
-import com.rohan.newsexplorer.utils.IoDispatcher
-import kotlinx.coroutines.CoroutineDispatcher
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -16,10 +14,9 @@ import javax.inject.Inject
 class NewsRepository @Inject constructor(
     private val newsApiService: NewsApiService,
     private val newsDao: NewsDao,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) {
 
-    //ForceRefresh - Fetch new data from api , clear & update cache
+    //ForceRefresh - Fetch new data from api, clear & update cache
     suspend fun fetchNewsData(
         category: String,
         forceRefresh: Boolean = false
@@ -64,6 +61,30 @@ class NewsRepository @Inject constructor(
         }
     }
 
+    suspend fun fetchDiscoverNewsData(category: String): DataResult<NewsData> {
+        return try {
+            val response = newsApiService.getNewsData(category)
+            if (response.isSuccessful) {
+                val verifiedNewsList = arrayListOf<NData>()
+                for (nData in response.body()!!.newDataList) {
+                    if (nData.readMoreUrl == null) continue
+                    verifiedNewsList.add(nData)
+                }
+                DataResult.Success(response.body()!!)
+            } else {
+                response.errorBody()?.toString()?.let { Log.d("ROHAN", it) }
+                DataResult.Error(Exception(response.errorBody()?.toString() ?: ""))
+            }
+        } catch (e: Exception) {
+            Log.d("ROHAN", "GOT ERROR")
+            Log.d("ROHAN", e.message.toString())
+            if (e.message.toString().contains("Unable to resolve host"))
+                DataResult.Error(Exception("You're offline"))
+            else
+                DataResult.Error(e)
+        }
+    }
+
     fun fetchDownloadedNews(): DataResult<NewsData> {
         return try {
             val cachedNews = newsDao.getNewsList()
@@ -88,7 +109,7 @@ class NewsRepository @Inject constructor(
     }
 
 
-    suspend fun downloadNews(news: NData) {
+    suspend fun saveNewsToDb(news: NData) {
         try {
             newsDao.insert(news)
         } catch (e: Exception) {
@@ -106,31 +127,5 @@ class NewsRepository @Inject constructor(
     }
 
 
-//    suspend fun fetchDiscoverNewsData(category: String): DataResult<NewsData> {
-//        return try {
-//
-//            val response = newsApiService.getNewsData(category)
-//
-//            if (response.isSuccessful) {
-//                Log.d("ROHAN", "FETCHED ${response.body()!!.category}")
-//
-//                val verifiedNewsList = arrayListOf<NData>()
-//                for (nData in response.body()!!.newDataList) {
-//                    if (nData.readMoreUrl == null) continue
-//
-//                    verifiedNewsList.add(nData)
-//                }
-//                DataResult.Success(response.body()!!)
-//            } else {
-//                response.errorBody()?.toString()?.let { Log.d("ROHAN", it) }
-//                DataResult.Error(Exception(response.errorBody()?.toString() ?: ""))
-//            }
-//        } catch (e: Exception) {
-//            Log.d("ROHAN", "GOT ERROR")
-//            Log.d("ROHAN", e.message.toString())
-//
-//            DataResult.Error(e)
-//        }
-//    }
 
 }
