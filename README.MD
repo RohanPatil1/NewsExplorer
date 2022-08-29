@@ -15,6 +15,7 @@ convenience.
 # Components
 - Android - Kotlin
 - MVVM
+- ViewStubs
 - Dependency Injection: Dagger Hilt
 - Room Database & Retrofit
 - Navigation Component
