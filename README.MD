@@ -1,4 +1,4 @@
- <img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/images/bg.png"  height="576" width="720" alt="">
+ <img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/images/bg.png"  height="480" width="720" alt="">
 
 # About 
 NewsExplorer is a news app that shows news articles from all around the world. The Discover screen
