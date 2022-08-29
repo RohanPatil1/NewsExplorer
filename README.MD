@@ -1,7 +1,7 @@
- <img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/icon.png"  height="50" width="50" alt="">
+ <img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/images/bg.png"  height="600" width="800" alt="">
 
 
-# About NewsExplorer
+# About 
 NewsExplorer is a news app that shows news articles from all around the world. The Discover screen
 lets users read news of several categories. It efficiently handles api calls by fetching news
 everyday 8AM & caching the data so the user can instantly see the news when they open the app.
@@ -20,6 +20,7 @@ convenience.
 - Room Database & Retrofit
 - Navigation Component
 - DeepLinks
+- Coroutines
 - LiveData 
 - Firebase RemoteConfig
 - Alarm Manager
@@ -29,6 +30,6 @@ convenience.
 - [SpeedMarquee](https://github.com/RohanPatil1/SpeedMarquee)
 
  # Screenshots
-<img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/ss1.jpg" width="360" height="777" />
-<img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/ss2.jpg" width="360" height="777" />
-<img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/ss3.jpg" width="360" height="777" />
+<img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/images/ss1.jpg" width="360" height="777" />
+<img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/images/ss2.jpg" width="360" height="777" />
+<img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/images/ss3.jpg" width="360" height="777" />

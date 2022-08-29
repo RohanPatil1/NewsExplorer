@@ -4,22 +4,17 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.BlendMode
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.rohan.newsexplorer.data.model.NData
 import com.rohan.newsexplorer.databinding.DiscoverNewsItemLargeBinding
 import com.rohan.newsexplorer.databinding.DiscoverNewsItemSmallBinding
 import com.rohan.newsexplorer.ui.adapters.click_listeners.DiscoverNewsItemOnClick
+import com.rohan.newsexplorer.utils.NetworkImageUtils
 import java.util.*
 
 
@@ -50,32 +45,13 @@ class DiscoverNewsAdapter : ListAdapter<NData, RecyclerView.ViewHolder>(diffUtil
         RecyclerView.ViewHolder(binding.root) {
         fun bindTo(nData: NData, position: Int) {
 
-            Glide.with(binding.root)
-                .load(nData.imageUrl)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.discoverItemLargePB.visibility = View.GONE
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.discoverItemLargePB.visibility = View.GONE
-                        return false
-                    }
-
-                })
-                .into(binding.discoverCatImgLargeIV)
+            NetworkImageUtils.loadImage(
+                binding.root,
+                nData.imageUrl,
+                {binding.discoverItemLargePB.visibility = View.GONE},
+                {binding.discoverItemLargePB.visibility = View.GONE},
+                binding.discoverCatImgLargeIV
+            )
             binding.discoverCatTitleLargeTV.text = nData.content
 
 
@@ -97,32 +73,13 @@ class DiscoverNewsAdapter : ListAdapter<NData, RecyclerView.ViewHolder>(diffUtil
     inner class DiscoverNewsSmallVH(private val binding: DiscoverNewsItemSmallBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindTo(nData: NData) {
-            Glide.with(binding.root)
-                .load(nData.imageUrl)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.discoverItemSmallPB.visibility = View.GONE
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.discoverItemSmallPB.visibility = View.GONE
-                        return false
-                    }
-
-                })
-                .into(binding.discoverCatImgSmallIV)
+            NetworkImageUtils.loadImage(
+                binding.root,
+                nData.imageUrl,
+                { binding.discoverItemSmallPB.visibility = View.GONE },
+                { binding.discoverItemSmallPB.visibility = View.GONE },
+                binding.discoverCatImgSmallIV
+            )
             binding.root.setOnClickListener {
                 discoverNewsItemOnClick.onNewsClick(nData)
             }
