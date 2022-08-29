@@ -1,6 +1,5 @@
  <img src="https://github.com/RohanPatil1/NewsExplorer/blob/master/images/bg.png"  height="540" width="960" alt="">
 
-
 # About 
 NewsExplorer is a news app that shows news articles from all around the world. The Discover screen
 lets users read news of several categories. It efficiently handles api calls by fetching news
