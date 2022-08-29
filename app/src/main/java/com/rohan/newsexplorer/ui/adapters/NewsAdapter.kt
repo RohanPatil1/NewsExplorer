@@ -3,7 +3,6 @@ package com.rohan.newsexplorer.ui.adapters
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -19,11 +18,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.rohan.newsexplorer.R
 import com.rohan.newsexplorer.data.model.NData
 import com.rohan.newsexplorer.databinding.DownloadsNewsItemBinding
@@ -33,6 +27,7 @@ import com.rohan.newsexplorer.ui.adapters.click_listeners.DownloadsItemOnClick
 import com.rohan.newsexplorer.ui.adapters.click_listeners.NewsItemOnClick
 import com.rohan.newsexplorer.utils.Constants.DOWNLOADS
 import com.rohan.newsexplorer.utils.Constants.HOME
+import com.rohan.newsexplorer.utils.NetworkImageUtils
 
 
 class NewsAdapter(private val typeTag: Int) :
@@ -59,15 +54,6 @@ class NewsAdapter(private val typeTag: Int) :
                 return oldItem == newItem
             }
         }
-
-        /*
-        This is what I did. (If you cant access class "context" inside SharedPreferences)
-
-  Create a context of the adapter class by Context mConext; or private WeakReference<Context> mContext;
-  Instead giving mContext use this.mContext.get() wherever you need to use context inside the SharedPrefernce.
-   like SharedPreferences preferences = this.mContext.get().getSharedPreferences(MY_PREFERENCE_NAME, Context.MODE_PRIVATE);
-         */
-
     }
 
 
@@ -76,33 +62,13 @@ class NewsAdapter(private val typeTag: Int) :
 
         fun bindTo(nData: NData, position: Int) {
             binding.nData = nData
-            Glide.with(binding.root)
-                .load(nData.imageUrl)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.newsItemPB.visibility = GONE
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.newsItemPB.visibility = GONE
-                        return false
-                    }
-
-                })
-                .into(binding.newsImgIV)
-
+            NetworkImageUtils.loadImage(
+                binding.root,
+                nData.imageUrl,
+                { binding.newsItemPB.visibility = GONE },
+                { binding.newsItemPB.visibility = GONE },
+                binding.newsImgIV
+            )
 
 
             binding.titleTV.setOnClickListener(object : DoubleClickListener() {
@@ -141,32 +107,13 @@ class NewsAdapter(private val typeTag: Int) :
 
         fun bindTo(nData: NData) {
             binding.nData = nData
-            Glide.with(binding.root)
-                .load(nData.imageUrl)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.downloadsItemPB.visibility = GONE
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.downloadsItemPB.visibility = GONE
-                        return false
-                    }
-
-                })
-                .into(binding.downloadsImgIV)
+            NetworkImageUtils.loadImage(
+                binding.root,
+                nData.imageUrl,
+                { binding.downloadsItemPB.visibility = GONE },
+                { binding.downloadsItemPB.visibility = GONE },
+                binding.downloadsImgIV
+            )
 
             binding.downloadsDeleteBtn.setOnClickListener {
                 downloadsItemClickListener.onDeleteClick(nData)
